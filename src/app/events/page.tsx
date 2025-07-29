@@ -1,15 +1,18 @@
 "use client";
-import { Content } from "../../../data/events.mjs";
-import Image from "next/image";
-import React, { useState, useEffect } from "react";
-import { CardContainer, CardBody, CardItem } from "../../components/ui/sticky-scroll-reveal";
-import Link from "next/link";
-import Footer from "../../components/footer";
-import { BackgroundBeams } from "@/components/ui/background_beams";
+import Loader from "@/components/loader"; // Import the Loader component
 import Navbar from "@/components/navbar1";
-import Loader from "@/components/loader";  // Import the Loader component
-import {motion,useScroll} from 'framer-motion';
+import { BackgroundBeams } from "@/components/ui/background_beams";
+import { motion, useScroll } from "framer-motion";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { Content } from "../../../data/events.mjs";
+import Footer from "../../components/footer";
 import SkeletonLoader from "../../components/skeltonloader";
+import {
+  CardBody,
+  CardContainer,
+  CardItem,
+} from "../../components/ui/sticky-scroll-reveal";
 
 export default function ThreeDCardDemo() {
   const [loading, setLoading] = useState(true);
@@ -32,11 +35,6 @@ export default function ThreeDCardDemo() {
     return () => clearTimeout(timer); // Cleanup the timer if the component unmounts
   }, []);
 
-  const handleImageLoad = () => {
-    setLoading(false); // Image is fully loaded
-    setShowImage(true); // Show the image
-  };
-
   if (loading) {
     return <Loader />;
   }
@@ -45,9 +43,9 @@ export default function ThreeDCardDemo() {
     <>
       <Navbar />
       <motion.div
-      style={{ scaleY: scrollYProgress }}
-      className="fixed top-0 right-0 bottom-0 w-2 bg-custom-white origin-top z-50"
-    />
+        style={{ scaleY: scrollYProgress }}
+        className="fixed top-0 right-0 bottom-0 w-2 bg-custom-white origin-top z-50"
+      />
       <BackgroundBeams />
       <div className="overflow-hidden min-h-screen bg-[#171616]">
         <div className="lg:text-7xl md:text-8xl text-5xl font-barlowb text-white lg:pt-16 lg:mx-20 mx-20 pt-16">
@@ -69,18 +67,17 @@ export default function ThreeDCardDemo() {
                 </CardItem>
 
                 <CardItem translateZ="100" className="w-full mt-4">
-                {!showImage ? (
-                        <SkeletonLoader />
-                      ) : (
-                        <Image
-                        src={item.image}
-                        height="1000"
-                        width="1000"
-                        className="h-60 w-full object-cover rounded-xl group-hover/card:shadow-xl"
-                        alt="thumbnail"
-                      />
-                      )}
-
+                  {!showImage ? (
+                    <SkeletonLoader />
+                  ) : (
+                    <Image
+                      src={item.image}
+                      height="1000"
+                      width="1000"
+                      className="h-60 w-full object-cover rounded-xl group-hover/card:shadow-xl"
+                      alt="thumbnail"
+                    />
+                  )}
                 </CardItem>
                 <CardItem
                   as="p"

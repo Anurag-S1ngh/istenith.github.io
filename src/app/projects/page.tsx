@@ -13,7 +13,6 @@ import Image from "next/image";
 import SkeletonLoader from "../../components/skeltonloader";
 import Loader from "@/components/loader";
 
-
 const CustomPrevArrow: React.FC<any> = (props) => (
   <div onClick={props.onClick} className="slick-prev">
     Previous
@@ -46,7 +45,7 @@ const settings = {
 };
 
 const Projects = () => {
-  const [loading, setLoading] = useState(true);
+  const [_, setLoading] = useState(true);
   const [showImage, setShowImage] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -59,22 +58,18 @@ const Projects = () => {
     return () => clearTimeout(timer); // Cleanup the timer on unmount
   }, []);
 
-
-
-
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowImage(true);
     }, 5000);
 
-    return () => clearTimeout(timer); 
+    return () => clearTimeout(timer);
   }, []);
 
   const handleImageLoad = () => {
-    setLoading(false); 
-    setShowImage(true); 
+    setLoading(false);
+    setShowImage(true);
   };
-
 
   if (isLoading) {
     return <Loader />;

@@ -1,15 +1,14 @@
-"use client"
-import React, { useState, useEffect } from "react";
-import BlogList from "../../components/ui/blogCards";
-import Loader from "@/components/loader"; // Import the Loader component
-import { BackgroundBeams } from "@/components/ui/background_beams";
+"use client";
 import Footer from "@/components/footer";
+import Loader from "@/components/loader"; // Import the Loader component
 import Navbar from "@/components/navbar1";
-import {motion,useScroll} from "framer-motion";
+import { motion, useScroll } from "framer-motion";
+import { useEffect, useState } from "react";
+import BlogList from "../../components/ui/blogCards";
 
 export default function Blog() {
   const [isLoading, setIsLoading] = useState(true);
-const {scrollYProgress} =useScroll()
+  const { scrollYProgress } = useScroll();
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
@@ -17,8 +16,6 @@ const {scrollYProgress} =useScroll()
 
     return () => clearTimeout(timer); // Clean up the timer on component unmount
   }, []);
-
-  
 
   if (isLoading) {
     return <Loader />; // Show the loader while loading
@@ -28,9 +25,9 @@ const {scrollYProgress} =useScroll()
     <>
       <Navbar />
       <motion.div
-      style={{ scaleY: scrollYProgress }}
-      className="fixed top-0 right-0 bottom-0 w-2 bg-custom-white origin-top z-50"
-    />
+        style={{ scaleY: scrollYProgress }}
+        className="fixed top-0 right-0 bottom-0 w-2 bg-custom-white origin-top z-50"
+      />
       <div className="min-h-screen bg-[#171616]">
         <div className=" justify-center flex flex-row pt-16">
           <div className="lg:text-7xl text-6xl font-barlowb text-white">B</div>
