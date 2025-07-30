@@ -1,19 +1,19 @@
 "use client";
-import { profileDetails } from "../../../data/member_data.mjs";
-import React, { useState, useEffect } from "react";
+import Navbar from "@/components/navbar1";
 import {
   ApolloClient,
-  InMemoryCache,
-  useQuery,
-  gql,
   ApolloProvider,
+  gql,
+  InMemoryCache,
 } from "@apollo/client";
+import { motion, useScroll } from "framer-motion";
+import { Sparkles } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import { FaInstagram } from "react-icons/fa";
 import { TiSocialLinkedin } from "react-icons/ti";
-import Link from "next/link";
-import Image from "next/image";
-import { motion, useScroll } from "framer-motion";
-import Navbar from "@/components/navbar1";
+import { profileDetails } from "../../../data/member_data.mjs";
 import Footer from "../../components/footer";
 import Loader from "../../components/loader";
 import SkeletonLoader from "../../components/skeltonloader";
@@ -54,7 +54,6 @@ const Team = () => {
   const loading = false;
   const error = false;
   const data = profileDetails;
-  console.log(data);
   // end
 
   const { scrollYProgress } = useScroll();
@@ -124,8 +123,34 @@ const Team = () => {
             className={`grid ${"grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:gap-4"} w-full md:w-full lg:w-9/12 lg:mx-12`}
           >
             {filteredProfiles.length === 0 ? (
-              <div className="col-span-full text-center text-white text-xl font-actor my-8 px-6 py-4 border border-white/20 rounded-md">
-                Freshmen Interviews coming soon — stay tuned!
+              <div className="col-span-full my-8 h-1/2 w-fit mx-auto">
+                <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-black via-gray-900 to-gray-800 text-center shadow-2xl border border-gray-700 lg:py-20 lg:px-16 px-12 py-16">
+                  {/* Animated background elements */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent animate-pulse"></div>
+                  <div className="absolute -top-4 -right-4 h-24 w-24 rounded-full bg-white/10 blur-xl"></div>
+                  <div className="absolute -bottom-6 -left-6 h-32 w-32 rounded-full bg-gray-400/20 blur-2xl"></div>
+
+                  {/* Content */}
+                  <div className="relative z-10">
+                    <div className="mb-4 flex justify-center">
+                      <div className="flex items-center space-x-2 rounded-full bg-white/20 px-2 py-1 backdrop-blur-sm border border-gray-600">
+                        <Sparkles className="size-4 text-white animate-pulse" />
+                        <span className="text-xs font-medium text-gray-200">
+                          Coming Soon
+                        </span>
+                      </div>
+                    </div>
+
+                    <h2 className="text-4xl font-bold text-white md:text-5xl">
+                      Freshmen
+                      <span className="block bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                        Interviews
+                      </span>
+                    </h2>
+                  </div>
+                  {/* Decorative border */}
+                  <div className="absolute inset-0 rounded-xl border border-gray-600"></div>
+                </div>
               </div>
             ) : (
               filteredProfiles.map((details, index) => (
