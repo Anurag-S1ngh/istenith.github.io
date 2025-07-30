@@ -21,3 +21,4 @@ export async function DELETE(request) {
   await Project.findByIdAndDelete(id);
   return NextResponse.json({ message: "Topic deleted" }, { status: 200 });
 }
+
