@@ -1,4 +1,5 @@
 "use client";
+import { profileDetails } from "../../../data/member_data.mjs";
 import React, { useState, useEffect } from "react";
 import {
   ApolloClient,
@@ -44,10 +45,17 @@ const Team = () => {
   const [showImage, setShowImage] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  const { loading, error, data } = useQuery(GET_MEMBERS, {
-    client,
-    fetchPolicy: "cache-and-network",
-  });
+  // let { loading, error, data } = useQuery(GET_MEMBERS, {
+  //   client,
+  //   fetchPolicy: "cache-and-network",
+  // });
+
+  // extra added start
+  const loading = false;
+  const error = false;
+  const data = profileDetails;
+  console.log(data);
+  // end
 
   const { scrollYProgress } = useScroll();
 
@@ -76,7 +84,7 @@ const Team = () => {
       case "second":
         return "text-3xl md:text-5xl lg:text-5xl";
       case "final":
-      case "Third":
+      case "third":
       case "first":
         return "text-3xl md:text-5xl lg:text-6xl";
       case "FACULTY":
@@ -115,66 +123,72 @@ const Team = () => {
           <div
             className={`grid ${"grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:gap-4"} w-full md:w-full lg:w-9/12 lg:mx-12`}
           >
-            {filteredProfiles.map((details, index) => (
-              <motion.div
-                className={`${initialYear === "w-full mb-6 md:mb-8 lg:mb-0"}`}
-                key={`${initialYear}-${index}`}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
-              >
-                <div className="relative group">
-                  {!showImage ? (
-                    <SkeletonLoader />
-                  ) : (
-                    <Image
-                      src={details.img}
-                      alt={details.name}
-                      width={256}
-                      height={256}
-                      quality={100}
-                      unoptimized={true}
-                      className="h-64 w-64 border-4 border-white rounded-lg shadow-md transition-transform transform group-hover:scale-105 hover:shadow-xl duration-300 mx-auto"
-                    />
-                  )}
+            {filteredProfiles.length === 0 ? (
+              <div className="col-span-full text-center text-white text-xl font-actor my-8 px-6 py-4 border border-white/20 rounded-md">
+                Freshmen Interviews coming soon — stay tuned!
+              </div>
+            ) : (
+              filteredProfiles.map((details, index) => (
+                <motion.div
+                  className={`${initialYear === "w-full mb-6 md:mb-8 lg:mb-0"}`}
+                  key={`${initialYear}-${index}`}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: index * 0.2 }}
+                >
+                  <div className="relative group">
+                    {!showImage ? (
+                      <SkeletonLoader />
+                    ) : (
+                      <Image
+                        src={details.img}
+                        alt={details.name}
+                        width={256}
+                        height={256}
+                        quality={100}
+                        unoptimized={true}
+                        className="h-64 w-64 border-4 border-white rounded-lg shadow-md transition-transform transform group-hover:scale-105 hover:shadow-xl duration-300 mx-auto"
+                      />
+                    )}
 
-                  <div className="lg:absolute lg:bottom-2 md:right-32 lg:right-4 absolute bottom-2 ml-52 bg-[#1E1E1E] flex text-white opacity-80 group-hover:opacity-100 transition-opacity duration-300">
-                    {details.instagram && (
-                      <Link
-                        href={details.instagram}
-                        target="_blank"
-                        className="flex items-center justify-center ml-2 h-8 w-8"
-                      >
-                        <FaInstagram />
-                      </Link>
-                    )}
-                    {details.linkedin && (
-                      <Link
-                        href={details.linkedin}
-                        target="_blank"
-                        className="flex items-center justify-center mr-2 h-8 w-8"
-                      >
-                        <TiSocialLinkedin />
-                      </Link>
-                    )}
+                    <div className="lg:absolute lg:bottom-2 md:right-32 lg:right-4 absolute bottom-2 ml-52 bg-[#1E1E1E] flex text-white opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+                      {details.instagram && (
+                        <Link
+                          href={details.instagram}
+                          target="_blank"
+                          className="flex items-center justify-center ml-2 h-8 w-8"
+                        >
+                          <FaInstagram />
+                        </Link>
+                      )}
+                      {details.linkedin && (
+                        <Link
+                          href={details.linkedin}
+                          target="_blank"
+                          className="flex items-center justify-center mr-2 h-8 w-8"
+                        >
+                          <TiSocialLinkedin />
+                        </Link>
+                      )}
+                    </div>
                   </div>
-                </div>
-                <div className="flex flex-col mb-0 h-44 pt-2 bg-opacity-70 px-16 lg:px-3 rounded-b-lg lg:text-start text-center">
-                  <motion.div className="lg:text-[12xl] font-namelight text-[#D4CCCC]">
-                    {details.name}
-                  </motion.div>
-                  <motion.p className="text-[13xl] font-fontsemi text-[#D4CCCC]">
-                    {details.post}
-                  </motion.p>
-                  <motion.p className="text-[12xl] text-[#D4CCCC] font-namelight">
-                    {details.branch}
-                  </motion.p>
-                  <motion.p className="text-[12xl] text-[#D4CCCC] font-namelight">
-                    {details.location}
-                  </motion.p>
-                </div>
-              </motion.div>
-            ))}
+                  <div className="flex flex-col mb-0 h-44 pt-2 bg-opacity-70 px-16 lg:px-3 rounded-b-lg lg:text-start text-center">
+                    <motion.div className="lg:text-[12xl] font-namelight text-[#D4CCCC]">
+                      {details.name}
+                    </motion.div>
+                    <motion.p className="text-[13xl] font-fontsemi text-[#D4CCCC]">
+                      {details.post}
+                    </motion.p>
+                    <motion.p className="text-[12xl] text-[#D4CCCC] font-namelight">
+                      {details.branch}
+                    </motion.p>
+                    <motion.p className="text-[12xl] text-[#D4CCCC] font-namelight">
+                      {details.location}
+                    </motion.p>
+                  </div>
+                </motion.div>
+              ))
+            )}
           </div>
 
           <div className="flex flex-col items-center lg:items-start lg:right-12 lg:mt-0 -mt-36">
