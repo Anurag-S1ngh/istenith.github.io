@@ -546,7 +546,7 @@ export const profileDetails = {
         "https://www.linkedin.com/in/shardul-sharma-70318529b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
       instagram:
         "https://www.instagram.com/_shadow_lord_69/profilecard/?igsh=anZsdWo5cnBobTlo",
-      img: "/assets/images/secondyear/Shardul.webp",
+      img: "/assets/images/secondyear/shardul.webp",
       branch: " Computer Science and Engineering ",
       location: "Mandi",
     },
